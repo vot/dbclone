@@ -1,0 +1,26 @@
+{
+  "extends": "airbnb-base",
+  "root": true,
+  "env": {
+    "node": true
+  },
+  "rules": {
+    "no-const-assign": "warn",
+    "no-this-before-super": "warn",
+    "no-undef": "warn",
+    "no-unreachable": "warn",
+    "no-unused-vars": "warn",
+    "constructor-super": "warn",
+    "valid-typeof": "warn",
+    "no-console": "off",
+    "comma-dangle": "off",
+    "object-shorthand": "warn",
+    "no-mixed-operators": "warn",
+    "prefer-arrow-callback": "warn",
+    "eqeqeq": "warn",
+    "lines-around-directive": "warn",
+    "func-names": "warn",
+    "consistent-return": "warn",
+    "prefer-destructuring": "off"
+  }
+}
