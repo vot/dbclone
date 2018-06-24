@@ -1,7 +1,7 @@
 {
   "name": "dbclone",
   "version": "0.0.1",
-  "description": "Utility to move data between Mongo hosts and/or databases.",
+  "description": "Utility to move data between NoSQL databases.",
   "keywords": [
     "database",
     "db",

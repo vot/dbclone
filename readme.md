@@ -1,14 +1,19 @@
 # dbclone
 
 [![NPM Version][npm-img]][npm-url]
-[![NPM Downloads][npm-dl-img]][npm-url]
+[![NPM Downloads][npm-dl-img]][npm-stat-url]
+[![LGPL-3.0 License][license-img]][license-link]
 
 [npm-url]: https://npmjs.org/package/dbclone
+[npm-stat-url]: https://npm-stat.com/charts.html?package=dbclone
 [npm-img]: https://img.shields.io/npm/v/dbclone.svg
 [npm-dl-img]: https://img.shields.io/npm/dm/dbclone.svg
 
+[license-img]: https://img.shields.io/badge/license-LGPL--3.0-blue.svg
+[license-link]: https://spdx.org/licenses/LGPL-3.0
 
-*Utility to move data between Mongo hosts and/or databases effortlessly.*
+
+*Utility to move data between NoSQL databases.*
 
 **Features**
 - Import/export MongoDB databases
@@ -24,11 +29,11 @@ globally (`npm install dbclone -g`).
 
 Two modes are supported: `import` and `export`.
 
-They both need the MongoDB URI (including database name).
+They both need MongoDB host and database name).
 
-You can also specify the data directory to give more flexibility.
+You can also specify the data directory for more flexibility.
 
-**At the moment only interactive mode is implemented.**
+**At the moment only interactive prompt-based mode is implemented.**
 
 <!--
 <br />
@@ -49,8 +54,9 @@ TBD. See [example.js](./example.js) for a quick demo.
 
 - support db dropping, counting documents and diffing two databases
 - add backends for other database types
-- destructive mode (drop db before import to force clean state)
-- non-interactive mode in CLI
+- destructive/clean mode (drop db before import to force clean state)
+- force mode (in non-destructive mode) to override existing documents / controlled upsert
+- non-interactive mode in CLI (pass in arguments)
 - cleaner interfaces in libs
 - documentation
 

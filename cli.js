@@ -2,7 +2,7 @@
 const prompt = require('prompt');
 const importRoutine = require('./lib/import');
 const exportRoutine = require('./lib/export');
-const resolveDir = require('./lib/utils/resolveDir');
+const resolvePath = require('./lib/backends/fs').resolvePath;
 
 const schema = {
   properties: {
@@ -49,7 +49,7 @@ function main() {
   console.log('---------------------\n');
   console.log('Supported modes:   import, export');
   console.log('Default host:      localhost');
-  console.log(`Default data dir:  ${resolveDir('data')}`);
+  console.log(`Default data dir:  ${resolvePath('data')}`);
   console.log('\n---------------------\n');
 
   prompt.start();
