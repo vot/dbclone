@@ -53,6 +53,8 @@ TBD. See [example.js](./example.js) for a quick demo.
 ## TODO
 
 - support db dropping, counting documents and diffing two databases
+- store data types
+- add support for indexed properties
 - add backends for other database types
 - destructive/clean mode (drop db before import to force clean state)
 - force mode (in non-destructive mode) to override existing documents / controlled upsert
