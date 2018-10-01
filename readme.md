@@ -33,8 +33,6 @@ They both need MongoDB host and database name).
 
 You can also specify the data directory for more flexibility.
 
-**At the moment only interactive prompt-based mode is implemented.**
-
 <!--
 <br />
 
@@ -53,10 +51,11 @@ TBD. See [example.js](./example.js) for a quick demo.
 ## TODO
 
 - support db dropping, counting documents and diffing two databases
+- store data types
+- add support for indexed properties
 - add backends for other database types
 - destructive/clean mode (drop db before import to force clean state)
 - force mode (in non-destructive mode) to override existing documents / controlled upsert
-- non-interactive mode in CLI (pass in arguments)
 - cleaner interfaces in libs
 - documentation
 

@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+const clarg = require('clarg');
 const prompt = require('prompt');
 const importRoutine = require('./lib/import');
 const exportRoutine = require('./lib/export');
@@ -44,7 +45,7 @@ const schema = {
   }
 };
 
-function main() {
+function interactiveMode() {
   console.log('dbclone');
   console.log('---------------------\n');
   console.log('Supported modes:   import, export');
@@ -70,6 +71,37 @@ function main() {
     console.log('Couldn\'t resolve mode');
     return false;
   });
+}
+
+
+function main() {
+  // if things are specified in CLI args
+  const cliArgs = clarg();
+
+  const mode = cliArgs && cliArgs.args && cliArgs.args.length ? cliArgs.args[0] : false;
+  const opts = cliArgs.opts;
+
+  if (!mode) {
+    return interactiveMode();
+  }
+
+  console.log('Mode selected through CLI args:', mode);
+
+  if (!opts.host || !opts.db) {
+    return console.log('Missing database info. Please specify --host and --db');
+  }
+
+  if (mode === 'import') {
+    return importRoutine(opts, () => {
+      console.log('Import finished.');
+    });
+  }
+
+  if (mode === 'export') {
+    return exportRoutine(opts, () => {
+      console.log('Export finished.');
+    });
+  }
 }
 
 main();
