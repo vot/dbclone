@@ -1,5 +1,6 @@
 const exportRoutine = require('./lib/export');
 const importRoutine = require('./lib/import');
+const countRoutine  = require('./lib/count');
 
 const exportOpts = {
   host: 'localhost',
@@ -15,6 +16,14 @@ const importOpts = {
   exclude: ['config']
 };
 
+const countOpts = {
+  host: 'localhost',
+  db: '20180622-example-data-prod',
+  collections: ['example', 'users', 'prod']
+};
+
 exportRoutine(exportOpts, () => {
   importRoutine(importOpts, () => {});
 });
+
+countRoutine(countOpts, () => { })
