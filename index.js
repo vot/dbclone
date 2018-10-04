@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 const exportLib = require('./lib/export');
 const importLib = require('./lib/import');
+const dropDatabaseLib = require('./lib/drop');
 
 if (require.main === module) {
   // eslint-disable-next-line global-require
@@ -9,5 +10,6 @@ if (require.main === module) {
 
 module.exports = {
   export: exportLib,
-  import: importLib
+  import: importLib,
+  dropDatabase: dropDatabaseLib,
 };
