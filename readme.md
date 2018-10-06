@@ -39,8 +39,9 @@ You can also specify the data directory for more flexibility.
 **@TODO / EXAMPLE** Cloning database from a remote host into a local DB with a date in its name
 
 ```
-dbclone export --host mongo.myapp.com --db=myapp-data-prod --datadir data/20180622-app-data-dump-20180622
-dbclone import --host localhost --db=20180622-myapp-data-prod --datadir data/20180622-app-data-dump
+dbclone export --host mongo.myapp.com --db=myapp-data --datadir data/20180622-myapp-data
+dbclone import --host localhost --db=myapp-data --datadir data/20180622-myapp-data
+dbclone count --host localhost --db=myapp-data --collections pages,files
 ```
 -->
 
