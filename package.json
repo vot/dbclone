@@ -1,6 +1,6 @@
 {
   "name": "dbclone",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Utility to move data between NoSQL databases.",
   "keywords": [
     "database",
@@ -27,7 +27,7 @@
     "url": "https://github.com/vot/dbclone.git"
   },
   "author": "Vot Z <http://vot-z.com>",
-  "license": "LGPL-3.0",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/vot/dbclone/issues"
   },
