@@ -3,6 +3,7 @@ const clarg = require('clarg');
 const prompt = require('prompt');
 const importRoutine = require('./lib/import');
 const exportRoutine = require('./lib/export');
+const countRoutine = require('./lib/count');
 const resolvePath = require('./lib/backends/fs').resolvePath;
 
 const schema = {
@@ -68,6 +69,12 @@ function interactiveMode() {
       });
     }
 
+    if (result.mode === 'count') {
+      return countRoutine(result, () => {
+        console.log('Count finished.');
+      });
+    }
+
     console.log('Couldn\'t resolve mode');
     return false;
   });
@@ -102,6 +109,14 @@ function main() {
       console.log('Export finished.');
     });
   }
+
+  if (mode === 'count') {
+    return countRoutine(opts, () => {
+      console.log('Count finished.');
+    });
+  }
+
+  return console.log('Unknown mode.');
 }
 
 main();
