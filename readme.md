@@ -2,15 +2,15 @@
 
 [![NPM Version][npm-img]][npm-url]
 [![NPM Downloads][npm-dl-img]][npm-stat-url]
-[![LGPL-3.0 License][license-img]][license-link]
+[![MIT License][license-img]][license-link]
 
 [npm-url]: https://npmjs.org/package/dbclone
 [npm-stat-url]: https://npm-stat.com/charts.html?package=dbclone
 [npm-img]: https://img.shields.io/npm/v/dbclone.svg
 [npm-dl-img]: https://img.shields.io/npm/dm/dbclone.svg
 
-[license-img]: https://img.shields.io/badge/license-LGPL--3.0-blue.svg
-[license-link]: https://spdx.org/licenses/LGPL-3.0
+[license-img]: https://img.shields.io/badge/license-MIT-blue.svg
+[license-link]: https://spdx.org/licenses/MIT
 
 
 *Utility to move data between NoSQL databases.*
@@ -39,7 +39,7 @@ You can also specify the data directory for more flexibility.
 **@TODO / EXAMPLE** Cloning database from a remote host into a local DB with a date in its name
 
 ```
-dbclone export --host mongo.myapp.com --db=myapp-data --datadir data/20180622-myapp-data
+dbclone export --host mongo.myapp.com --db=myapp-data --datadir data/20180622-myapp-data --exclude files
 dbclone import --host localhost --db=myapp-data --datadir data/20180622-myapp-data
 dbclone count --host localhost --db=myapp-data --collections pages,files
 ```
@@ -62,6 +62,14 @@ TBD. See [example.js](./example.js) for a quick demo.
 
 ## Release notes
 
-v0.0.1
+### v0.0.2
+
+- **Maintenance:** changed license from deprecated `LGPL-3.0` to `MIT`
+- **Bugfix:** preserving correct types (fixes problem with ObjectIDs imported as strings)
+- **Bugfix:** fixed include/exclude parsing
+- **Feature:** added count method (thanks @thiagormagalhaes)
+
+
+### v0.0.1
 
 - basic import and export functionality
