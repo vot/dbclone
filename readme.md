@@ -20,6 +20,7 @@
 - Automatic selection of all collections
 - Include/exclude collections for partial imports and exports
 
+
 ## Usage in terminal
 
 You can use `dbclone` command in your terminal if you install the package
@@ -27,13 +28,12 @@ globally (`npm install dbclone -g`).
 
 **CLI OPTIONS**
 
-Two modes are supported: `import` and `export`.
+Supported modes: `import`, `export`, `count`.
 
-They both need MongoDB host and database name).
+They need MongoDB host (`--host`) and database name (`--db`).
 
-You can also specify the data directory for more flexibility.
+You can also specify additional options  (`--datadir`, `--exclude`)
 
-<!--
 <br />
 
 **@TODO / EXAMPLE** Cloning database from a remote host into a local DB with a date in its name
@@ -43,22 +43,52 @@ dbclone export --host mongo.myapp.com --db=myapp-data --datadir data/20180622-my
 dbclone import --host localhost --db=myapp-data --datadir data/20180622-myapp-data
 dbclone count --host localhost --db=myapp-data --collections pages,files
 ```
--->
+
 
 ## Usage in Node.js apps
 
-TBD. See [example.js](./example.js) for a quick demo.
+```
+const dbclone = require('dbclone');
+
+const exportOpts = {
+  host: 'localhost',
+  db: 'example-data-prod',
+  dataDir: 'data/20180622-example-app-data',
+  exclude: ['files', 'sessions']
+};
+
+const importOpts = {
+  host: 'localhost',
+  db: '20180622-example-data-prod',
+  dataDir: 'data/20180622-example-app-data',
+  exclude: ['config']
+};
+
+const countOpts = {
+  host: 'localhost',
+  db: '20180622-example-app-data',
+  collections: ['users', 'prod']
+};
+
+dbclone.export(exportOpts, (exportErr, exportData) => {
+  dbclone.import(importOpts, (importErr, importData) => {
+    dbclone.count(countOpts, (countErr, countData) => {
+      console.log('Test completed!');
+    });
+  });
+});
+```
+
 
 ## TODO
 
-- support db dropping, counting documents and diffing two databases
-- store data types
-- add support for indexed properties
+- support diffing of two databases/export data sets
+- support for indexed properties (opt-out: --noIndex)
 - add backends for other database types
-- destructive/clean mode (drop db before import to force clean state)
-- force mode (in non-destructive mode) to override existing documents / controlled upsert
-- cleaner interfaces in libs
+- conflict resolution strategies (`merge`/`overwrite`/`replace` - only copy missing data/write new data on top of existing/drop first and start clean)
+- clean and consistent interfaces in libs
 - documentation
+
 
 ## Release notes
 
