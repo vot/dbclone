@@ -5,11 +5,12 @@ const importRoutine = require('./lib/import');
 const exportRoutine = require('./lib/export');
 const countRoutine = require('./lib/count');
 const resolvePath = require('./lib/backends/fs').resolvePath;
+const dropRoutine = require('./lib/drop');
 
 const schema = {
   properties: {
     mode: {
-      pattern: /^(import|export)$/,
+      pattern: /^(import|export|drop|count)$/,
       type: 'string',
       message: 'Mode must equal "import" or "export".',
       required: true
@@ -18,7 +19,7 @@ const schema = {
       pattern: /^[a-zA-Z0-9.,:-]+$/,
       type: 'string',
       message: 'A valid host must be provided.',
-      default: 'localhost'
+      default: '127.0.0.1'
     },
     db: {
       pattern: /^[a-zA-Z0-9.,:-]+$/,
@@ -49,7 +50,7 @@ const schema = {
 function interactiveMode() {
   console.log('dbclone');
   console.log('---------------------\n');
-  console.log('Supported modes:   import, export');
+  console.log('Supported modes:   import, export, count, drop');
   console.log('Default host:      localhost');
   console.log(`Default data dir:  ${resolvePath('data')}`);
   console.log('\n---------------------\n');
@@ -72,6 +73,12 @@ function interactiveMode() {
     if (result.mode === 'count') {
       return countRoutine(result, () => {
         console.log('Count finished.');
+      });
+    }
+
+    if (result.mode === 'drop') {
+      return dropRoutine(result, () => {
+        console.log('Drop database finished.');
       });
     }
 
@@ -113,6 +120,12 @@ function main() {
   if (mode === 'count') {
     return countRoutine(opts, () => {
       console.log('Count finished.');
+    });
+  }
+
+  if (mode === 'drop') {
+    return dropRoutine(opts, () => {
+      console.log('Drop database finished.');
     });
   }
 
