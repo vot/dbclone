@@ -84,8 +84,43 @@ function parseInput(result) {
   }
 
   if (result.mode === 'drop') {
-    return lib.drop(result, () => {
-      console.log('Drop database finished.');
+    if (optsObj.force) {
+      return lib.drop(optsObj, () => {
+        console.log('Drop database finished.');
+      });
+    }
+
+    const confirmMsg = `Are you sure you want to drop database "${optsObj.db}" from host "${optsObj.host}"? (y/n)`;
+
+    const schemaConfirmDrop = {
+      properties: {
+        answer: {
+          pattern: /^(y|n|yes|no)$/,
+          type: 'string',
+          message: 'You must answer with "y" or "n"',
+          required: true
+        }
+      }
+    };
+
+    console.log(confirmMsg);
+
+    prompt.start();
+
+    return prompt.get(schemaConfirmDrop, (err, confirmResult) => {
+      if (err) {
+        return process.exit(1);
+      }
+
+      const confirmDrop = confirmResult.answer;
+
+      if (confirmDrop !== 'y' && confirmDrop !== 'yes') {
+        return console.log('Aborted.');
+      }
+
+      return lib.drop(optsObj, () => {
+        console.log('Drop database finished.');
+      });
     });
   }
 
