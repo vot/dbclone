@@ -33,7 +33,7 @@ globally (`npm install dbclone -g`).
 
 **CLI OPTIONS**
 
-Supported modes: `import`, `export`, `count`.
+Supported modes: `import`, `export`, `count`, `drop`.
 
 They need MongoDB host (`--host`) and database name (`--db`).
 
@@ -83,7 +83,9 @@ const countOpts = {
 dbclone.export(exportOpts, (exportErr, exportData) => {
   dbclone.import(importOpts, (importErr, importData) => {
     dbclone.count(countOpts, (countErr, countData) => {
-      console.log('Test completed!');
+      dbclone.drop(dropOpts, (dropErr, dropData) => {
+        console.log('Test completed!');
+      });
     });
   });
 });
