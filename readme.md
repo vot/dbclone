@@ -15,10 +15,15 @@
 
 *Utility to move data between NoSQL databases.*
 
-**Features**
-- Import/export MongoDB databases
-- Automatic selection of all collections
-- Include/exclude collections for partial imports and exports
+The major difference between this and mongodump is that I like this syntax more.
+
+dbclone also makes storing multiple backups and restoring them easier.
+It's also more controlled as you can change the target database names during
+these operations, whitelist or blacklist collections you'd like to use.
+
+It also includes a few extra utils like dropping databases and counting collection sizes.
+
+Currently it only supports MongoDB but other backends are also planned.
 
 
 ## Usage in terminal
@@ -34,12 +39,17 @@ They need MongoDB host (`--host`) and database name (`--db`).
 
 You can also specify additional options  (`--datadir`, `--exclude`)
 
+Count mode expects `--collections` specified.
+
+Drop mode prompts for confirmation by default - you can override this with `--force`.
+
 <br />
 
 **@TODO / EXAMPLE** Cloning database from a remote host into a local DB with a date in its name
 
 ```
 dbclone export --host mongo.myapp.com --db=myapp-data --datadir data/20180622-myapp-data --exclude files
+dbclone drop --host localhost --db=myapp-data --force
 dbclone import --host localhost --db=myapp-data --datadir data/20180622-myapp-data
 dbclone count --host localhost --db=myapp-data --collections pages,files
 ```
@@ -82,22 +92,33 @@ dbclone.export(exportOpts, (exportErr, exportData) => {
 
 ## TODO
 
-- support diffing of two databases/export data sets
-- support for indexed properties (opt-out: --noIndex)
-- add backends for other database types
-- conflict resolution strategies (`merge`/`overwrite`/`replace` - only copy missing data/write new data on top of existing/drop first and start clean)
+- support diffing of two databases/data dirs (enumerate collections, compare document counts)
+- support for indexed properties (opt-out through `--noIndex` flag)
+- add backends for other database types (DynamoDB to begin with)
+- support multiple conflict resolution strategies (`overwrite`/`merge`/`replace` - write new data on top of existing/only copy missing records/drop original contents first)
+- add `clone` mode which grabs data from source database and copies it to another
+- add `rename` mode which will do a `clone` on the same server and drop the original database
 - clean and consistent interfaces in libs
-- documentation
+- documentation and full JSDoc comments coverage
+- prepare testing strategy
+- implement tests as necessary
 
 
 ## Release notes
+
+### v0.0.3
+
+- **Maintenance:** cleaned up file structure
+- **Feature:** added `drop` method (thanks *@Dikaeinstein*)
+- **Feature:** added `version` method
+
 
 ### v0.0.2
 
 - **Maintenance:** changed license from deprecated `LGPL-3.0` to `MIT`
 - **Bugfix:** preserving correct types (fixes problem with ObjectIDs imported as strings)
 - **Bugfix:** fixed include/exclude parsing
-- **Feature:** added count method (thanks @thiagormagalhaes)
+- **Feature:** added `count` method (thanks *@thiagormagalhaes*)
 
 
 ### v0.0.1
