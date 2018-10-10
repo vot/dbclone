@@ -1,11 +1,11 @@
 #!/usr/bin/env node
 const clarg = require('clarg');
 const prompt = require('prompt');
-const importRoutine = require('./lib/import');
-const exportRoutine = require('./lib/export');
-const countRoutine = require('./lib/count');
-const resolvePath = require('./lib/backends/fs').resolvePath;
-const dropRoutine = require('./lib/drop');
+
+const lib = require('./lib');
+const resolvePath = require('./lib/backends').fs.resolvePath;
+
+const appVersion = require('./package.json').version;
 
 const schema = {
   properties: {
@@ -47,7 +47,88 @@ const schema = {
   }
 };
 
-function interactiveMode() {
+function parseInput(result) {
+  if (!result || !result.mode) {
+    return console.log(`Couldn't pick a mode from provided input: ${JSON.stringify(result, null, 2)}`);
+  }
+
+  /* Info modes */
+  if (result.mode === 'version') {
+    return console.log(`dbclone version ${appVersion}`);
+  }
+
+  /* Action modes */
+  const optsObj = result.opts || result || {};
+
+  if (!(optsObj.host || result.host) && !(optsObj.db || result.db)) {
+    return console.log('Missing database info. Please specify --host and --db');
+  }
+
+
+  if (result.mode === 'import') {
+    return lib.import(optsObj, () => {
+      console.log('Import finished.');
+    });
+  }
+
+  if (result.mode === 'export') {
+    return lib.export(optsObj, () => {
+      console.log('Export finished.');
+    });
+  }
+
+  if (result.mode === 'count') {
+    return lib.count(optsObj, () => {
+      console.log('Count finished.');
+    });
+  }
+
+  if (result.mode === 'drop') {
+    if (optsObj.force) {
+      return lib.drop(optsObj, () => {
+        console.log('Drop database finished.');
+      });
+    }
+
+    const confirmMsg = `Are you sure you want to drop database "${optsObj.db}" from host "${optsObj.host}"? (y/n)`;
+
+    const schemaConfirmDrop = {
+      properties: {
+        answer: {
+          pattern: /^(y|n|yes|no)$/,
+          type: 'string',
+          message: 'You must answer with "y" or "n"',
+          required: true
+        }
+      }
+    };
+
+    console.log(confirmMsg);
+
+    prompt.start();
+
+    return prompt.get(schemaConfirmDrop, (err, confirmResult) => {
+      if (err) {
+        return process.exit(1);
+      }
+
+      const confirmDrop = confirmResult.answer;
+
+      if (confirmDrop !== 'y' && confirmDrop !== 'yes') {
+        return console.log('Aborted.');
+      }
+
+      return lib.drop(optsObj, () => {
+        console.log('Drop database finished.');
+      });
+    });
+  }
+
+  console.log('Couldn\'t resolve mode');
+  return false;
+}
+
+function promptForInput() {
   console.log('dbclone');
   console.log('---------------------\n');
   console.log('Supported modes:   import, export, count, drop');
@@ -58,32 +139,10 @@ function interactiveMode() {
   prompt.start();
 
   prompt.get(schema, (err, result) => {
-    if (result.mode === 'import') {
-      return importRoutine(result, () => {
-        console.log('Import finished.');
-      });
+    if (err) {
+      return process.exit(1);
     }
-
-    if (result.mode === 'export') {
-      return exportRoutine(result, () => {
-        console.log('Export finished.');
-      });
-    }
-
-    if (result.mode === 'count') {
-      return countRoutine(result, () => {
-        console.log('Count finished.');
-      });
-    }
-
-    if (result.mode === 'drop') {
-      return dropRoutine(result, () => {
-        console.log('Drop database finished.');
-      });
-    }
-
-    console.log('Couldn\'t resolve mode');
-    return false;
+    return parseInput(result);
   });
 }
 
@@ -96,40 +155,10 @@ function main() {
   const opts = cliArgs.opts;
 
   if (!mode) {
-    return interactiveMode();
+    return promptForInput();
   }
 
-  console.log('Mode selected through CLI args:', mode);
-
-  if (!opts.host || !opts.db) {
-    return console.log('Missing database info. Please specify --host and --db');
-  }
-
-  if (mode === 'import') {
-    return importRoutine(opts, () => {
-      console.log('Import finished.');
-    });
-  }
-
-  if (mode === 'export') {
-    return exportRoutine(opts, () => {
-      console.log('Export finished.');
-    });
-  }
-
-  if (mode === 'count') {
-    return countRoutine(opts, () => {
-      console.log('Count finished.');
-    });
-  }
-
-  if (mode === 'drop') {
-    return dropRoutine(opts, () => {
-      console.log('Drop database finished.');
-    });
-  }
-
-  return console.log('Unknown mode.');
+  return parseInput({ mode, opts });
 }
 
 main();
