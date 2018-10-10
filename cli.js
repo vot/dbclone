@@ -3,7 +3,9 @@ const clarg = require('clarg');
 const prompt = require('prompt');
 
 const lib = require('./lib');
-const resolvePath = require('./lib/backends/fs').resolvePath;
+const resolvePath = require('./lib/backends').fs.resolvePath;
+
+const appVersion = require('./package.json').version;
 
 const schema = {
   properties: {
@@ -50,7 +52,13 @@ function parseInput(result) {
     return console.log(`Couldn't pick a mode from provided input: ${JSON.stringify(result, null, 2)}`);
   }
 
-  const optsObj = result.opts || {};
+  /* Info modes */
+  if (result.mode === 'version') {
+    return console.log(`dbclone version ${appVersion}`);
+  }
+
+  /* Action modes */
+  const optsObj = result.opts || result || {};
 
   if (!(optsObj.host || result.host) && !(optsObj.db || result.db)) {
     return console.log('Missing database info. Please specify --host and --db');
