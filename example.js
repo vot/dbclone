@@ -1,6 +1,6 @@
 const exportRoutine = require('./lib/export');
 const importRoutine = require('./lib/import');
-const countRoutine  = require('./lib/count');
+const countRoutine = require('./lib/count');
 
 const exportOpts = {
   host: 'localhost',
@@ -26,4 +26,4 @@ exportRoutine(exportOpts, () => {
   importRoutine(importOpts, () => {});
 });
 
-countRoutine(countOpts, () => { })
+countRoutine(countOpts, () => { });
