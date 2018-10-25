@@ -17,7 +17,7 @@
   ],
   "scripts": {
     "lint": "./node_modules/.bin/eslint .",
-    "test": "echo 'No tests yet'; exit 0"
+    "test": "nyc mocha"
   },
   "main": "index.js",
   "bin": {
@@ -45,6 +45,9 @@
   "devDependencies": {
     "eslint": "^4.19.1",
     "eslint-config-airbnb-base": "^12.1.0",
-    "eslint-plugin-import": "^2.9.0"
+    "eslint-plugin-import": "^2.9.0",
+    "mocha": "^5.2.0",
+    "mochawesome": "^3.1.1",
+    "nyc": "^13.1.0"
   }
 }

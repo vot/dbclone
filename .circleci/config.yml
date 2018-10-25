@@ -21,3 +21,10 @@ jobs:
 
       - run: npm run lint
       - run: npm run test
+
+      ## Process test artifacts (reports, coverage etc)
+      - store_artifacts:
+          path: mochawesome-report
+      - run: cat ./coverage/lcov.info | npx coveralls
+      - store_artifacts:
+          path: coverage

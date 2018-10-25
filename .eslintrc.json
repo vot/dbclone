@@ -2,7 +2,8 @@
   "extends": "airbnb-base",
   "root": true,
   "env": {
-    "node": true
+    "node": true,
+    "mocha": true
   },
   "rules": {
     "no-const-assign": "warn",

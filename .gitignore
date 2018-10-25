@@ -3,3 +3,6 @@ data
 package-lock.json
 yarn.lock
 .vscode
+coverage
+.nyc_output
+mochawesome-report
