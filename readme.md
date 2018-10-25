@@ -3,11 +3,14 @@
 [![NPM Version][npm-img]][npm-url]
 [![NPM Downloads][npm-dl-img]][npm-stat-url]
 [![MIT License][license-img]][license-link]
+[![Build status][circle-img]][circle-url]
 
 [npm-url]: https://npmjs.org/package/dbclone
 [npm-stat-url]: https://npm-stat.com/charts.html?package=dbclone
 [npm-img]: https://img.shields.io/npm/v/dbclone.svg
 [npm-dl-img]: https://img.shields.io/npm/dm/dbclone.svg
+[circle-img]: https://img.shields.io/circleci/project/github/vot/dbclone/master.svg
+[circle-url]: https://circleci.com/gh/vot/dbclone/tree/master
 
 [license-img]: https://img.shields.io/badge/license-MIT-blue.svg
 [license-link]: https://spdx.org/licenses/MIT
