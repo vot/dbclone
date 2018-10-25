@@ -25,6 +25,6 @@ jobs:
       ## Process test artifacts (reports, coverage etc)
       - store_artifacts:
           path: mochawesome-report
-      - run: cat ./coverage/lcov.info | npx coveralls
+      - run: (cat ./coverage/lcov.info | npx coveralls) || true
       - store_artifacts:
           path: coverage
