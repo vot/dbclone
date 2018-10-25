@@ -16,7 +16,8 @@
     "migrate"
   ],
   "scripts": {
-    "lint": "./node_modules/.bin/eslint ."
+    "lint": "./node_modules/.bin/eslint .",
+    "test": "echo 'No tests yet'; exit 0"
   },
   "main": "index.js",
   "bin": {
