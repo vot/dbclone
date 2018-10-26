@@ -12,8 +12,8 @@
 [npm-dl-img]: https://img.shields.io/npm/dm/dbclone.svg
 [circle-img]: https://img.shields.io/circleci/project/github/vot/dbclone/master.svg
 [circle-url]: https://circleci.com/gh/vot/dbclone/tree/master
-[coveralls-img]: https://coveralls.io/repos/github/vot/dbclone/badge.svg?branch=master
-[coveralls-url]: https://coveralls.io/vot/anishkny/dbclone?branch=master
+[coveralls-img]: https://img.shields.io/coveralls/github/vot/dbclone/master.svg
+[coveralls-url]: https://coveralls.io/github/vot/dbclone?branch=master
 
 [license-img]: https://img.shields.io/badge/license-MIT-blue.svg
 [license-link]: https://spdx.org/licenses/MIT
