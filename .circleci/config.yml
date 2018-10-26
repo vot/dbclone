@@ -2,7 +2,7 @@ version: 2
 jobs:
   build:
     docker:
-      - image: circleci/node:7.10
+      - image: circleci/node:8.12
 
     steps:
       - checkout
@@ -21,3 +21,10 @@ jobs:
 
       - run: npm run lint
       - run: npm run test
+
+      ## Process test artifacts (reports, coverage etc)
+      - store_artifacts:
+          path: mochawesome-report
+      - run: (cat ./coverage/lcov.info | npx coveralls) || true
+      - store_artifacts:
+          path: coverage
