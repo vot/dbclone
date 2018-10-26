@@ -8,4 +8,4 @@ yarn.lock
 coverage
 .nyc_output
 mochawesome-report
-test-results.xml
+test-results

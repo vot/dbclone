@@ -25,7 +25,7 @@ jobs:
 
       ## Process test artifacts (reports, coverage etc)
       - store_test_results:
-          path: ~
+          path: test-results
       - store_artifacts:
           path: mochawesome-report
       - store_artifacts:
