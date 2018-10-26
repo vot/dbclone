@@ -51,13 +51,23 @@ Drop mode prompts for confirmation by default - you can override this with `--fo
 
 <br />
 
-**@TODO / EXAMPLE** Cloning database from a remote host into a local DB with a date in its name
+**EXAMPLES** Cloning database from a remote host into a local DB with a date in its name
 
 ```
 dbclone export --host mongo.myapp.com --db=myapp-data --datadir data/20180622-myapp-data --exclude files
 dbclone drop --host localhost --db=myapp-data --force
 dbclone import --host localhost --db=myapp-data --datadir data/20180622-myapp-data
 dbclone count --host localhost --db=myapp-data --collections pages,files
+```
+
+**MongoDB URI - Authentication, replica sets**
+
+You can provide a fully qualified Mongo URI as host option.
+
+In order to authenticate with username and password you can use the following syntax:
+
+```
+dbclone export --host mongodb://username:p4ssw0rd@ds111111.mlab.com:11111/my-database --db my-database
 ```
 
 
@@ -67,7 +77,7 @@ dbclone count --host localhost --db=myapp-data --collections pages,files
 const dbclone = require('dbclone');
 
 const exportOpts = {
-  host: 'localhost',
+  host: 'mongodb://username:p4ssw0rd@ds111111.mlab.com:11111',
   db: 'example-data-prod',
   dataDir: 'data/20180622-example-app-data',
   exclude: ['files', 'sessions']
