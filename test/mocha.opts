@@ -1,1 +1,2 @@
---reporter mochawesome
+--reporter mocha-multi-reporters
+--reporter-options configFile=test/mocha-multi-reporter.config.json
