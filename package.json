@@ -1,6 +1,6 @@
 {
   "name": "dbclone",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Utility to move data between NoSQL databases.",
   "keywords": [
     "database",
