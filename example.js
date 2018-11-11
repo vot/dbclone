@@ -2,28 +2,43 @@ const exportRoutine = require('./lib/export');
 const importRoutine = require('./lib/import');
 const countRoutine = require('./lib/count');
 
-const exportOpts = {
-  host: 'localhost',
-  db: 'example-data-prod',
-  dataDir: 'data/20180622-example-data-prod',
-  exclude: ['files', 'sessions']
-};
-
 const importOpts = {
   host: 'localhost',
-  db: '20180622-example-data-prod',
-  dataDir: 'data/20180622-example-data-prod',
-  exclude: ['config']
+  db: 'dbclone-dev',
+  dataDir: 'dbclone-dev-20180622',
+  exclude: ['config', 'private']
+};
+
+const exportOpts = {
+  host: 'localhost',
+  db: 'dbclone-dev',
+  dataDir: 'dbclone-dev-20181024',
+  exclude: ['files', 'sessions']
 };
 
 const countOpts = {
   host: 'localhost',
-  db: '20180622-example-data-prod',
-  collections: ['example', 'users', 'prod']
+  db: 'dbclone-dev',
+  collections: ['pages', 'configs', 'prod']
 };
 
-exportRoutine(exportOpts, () => {
-  importRoutine(importOpts, () => {});
-});
+importRoutine(importOpts, (importErr, importData) => {
+  if (importErr) {
+    console.error('Import Error:', importErr);
+  }
+  console.log('Import Data:', importData);
 
-countRoutine(countOpts, () => { });
+  exportRoutine(exportOpts, (exportErr, exportData) => {
+    if (exportErr) {
+      console.error('Export Error:', exportErr);
+    }
+    console.log('Export Data:', exportData);
+
+    countRoutine(countOpts, (countErr, countData) => {
+      if (countErr) {
+        console.error('Count Error:', countErr);
+      }
+      console.log('Count Data:', countData);
+    });
+  });
+});
