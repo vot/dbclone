@@ -124,6 +124,15 @@ dbclone.export(exportOpts, (exportErr, exportData) => {
 
 ## Release notes
 
+### v0.0.4
+
+- **Maintenance:** split up CLI logic into individual pieces
+- **Bugfix:** passing values correctly through callbacks
+- **Feature:** friendlier interactive prompt mode
+- **Feature:** `--verbose` flag
+- **Feature:** consistent output in CLI
+
+
 ### v0.0.3
 
 - **Maintenance:** cleaned up file structure

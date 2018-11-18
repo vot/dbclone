@@ -1,6 +1,6 @@
 {
   "name": "dbclone",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Utility to move data between NoSQL databases.",
   "keywords": [
     "database",
@@ -38,9 +38,9 @@
     "clarg": "0.0.4",
     "fs-extra": "^6.0.1",
     "glob": "^7.1.2",
+    "inquirer": "^6.2.0",
     "lodash": "^4.17.10",
-    "mongodb": "^3.0.10",
-    "prompt": "^1.0.0"
+    "mongodb": "^3.0.10"
   },
   "devDependencies": {
     "dotenv": "^6.1.0",
