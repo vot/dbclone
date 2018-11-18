@@ -3,6 +3,7 @@ jobs:
   build:
     docker:
       - image: circleci/node:8.12
+      - image: circleci/mongo:3.4
 
     steps:
       - checkout
@@ -23,8 +24,14 @@ jobs:
       - run: npm run test
 
       ## Process test artifacts (reports, coverage etc)
+      - store_test_results:
+          path: test-results
+      - store_artifacts:
+          path: test-results
       - store_artifacts:
           path: mochawesome-report
-      - run: (cat ./coverage/lcov.info | npx coveralls) || true
       - store_artifacts:
           path: coverage
+      - run:
+          name: Upload code coverage
+          command: (cat ./coverage/lcov.info | npx coveralls) || true

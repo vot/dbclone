@@ -16,8 +16,8 @@
     "migrate"
   ],
   "scripts": {
-    "lint": "./node_modules/.bin/eslint .",
-    "test": "nyc mocha"
+    "lint": "eslint *.js lib/**/*.js test/**/*.js",
+    "test": "npm run lint && nyc mocha"
   },
   "main": "index.js",
   "bin": {
@@ -43,11 +43,17 @@
     "mongodb": "^3.0.10"
   },
   "devDependencies": {
+    "chai": "^4.2.0",
+    "dotenv": "^6.1.0",
     "eslint": "^4.19.1",
     "eslint-config-airbnb-base": "^12.1.0",
     "eslint-plugin-import": "^2.9.0",
+    "mkdirp": "^0.5.1",
     "mocha": "^5.2.0",
+    "mocha-junit-reporter": "^1.18.0",
+    "mocha-multi-reporters": "^1.1.7",
     "mochawesome": "^3.1.1",
-    "nyc": "^13.1.0"
+    "nyc": "^13.1.0",
+    "rimraf": "^2.6.2"
   }
 }

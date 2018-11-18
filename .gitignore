@@ -3,6 +3,10 @@ data
 package-lock.json
 yarn.lock
 .vscode
+
+## Test results, code coverage etc
 coverage
 .nyc_output
 mochawesome-report
+test-results
+.env
