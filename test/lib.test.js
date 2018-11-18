@@ -1,3 +1,4 @@
+const assert = require('chai').assert;
 require('dotenv').config();
 
 const dbclone = require('../lib');
@@ -24,9 +25,18 @@ describe('Library tests', async () => {
           host: TEST_MLAB_URL,
           db: getDBNameFromURL(TEST_MLAB_URL),
           dataDir: DATADIR,
-        }, (e, d) => {
-          console.log(`e = [${e}]`);
-          console.log(`d = [${d}]`);
+        }, (error, data) => {
+          assert.ok(!error, `Error was not null: ${error}`);
+          const expectedData = [{
+            collection: 'system.indexes',
+            documents: 1
+          },
+          {
+            collection: 'bios',
+            documents: 10
+          }
+          ];
+          assert.deepEqual(data, expectedData, 'Returned data did not match expected value.');
           resolve();
         });
       });
